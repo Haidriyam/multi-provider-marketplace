@@ -16,7 +16,8 @@ import {
   Briefcase, 
   Layers, 
   CalendarCheck,
-  CheckCircle2
+  CheckCircle2,
+  ArrowLeftRight
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -161,6 +162,10 @@ export default function Navbar() {
               <Link href="/search" className="hover:text-emerald-600 transition flex items-center gap-1.5">
                 <Search className="w-4 h-4 text-slate-400" />
                 Find Packages
+              </Link>
+              <Link href="/compare" className="hover:text-emerald-600 transition flex items-center gap-1.5">
+                <ArrowLeftRight className="w-4 h-4 text-slate-400" />
+                Compare
               </Link>
               <Link href="/search?destination=hunza-valley" className="hover:text-emerald-600 transition">
                 Hunza
