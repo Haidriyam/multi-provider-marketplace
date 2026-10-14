@@ -21,7 +21,10 @@ import {
   ChevronRight, 
   Info,
   CalendarCheck2,
-  Sparkles
+  Sparkles,
+  Crown,
+  Award,
+  Plane
 } from 'lucide-react';
 import { api } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
@@ -84,7 +87,7 @@ export default function ListingDetailPage() {
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) {
-      alert('Please log in as a customer to submit a booking or enquiry request.');
+      alert('Please log in as a traveler to submit a booking or enquiry request.');
       return;
     }
 
@@ -112,20 +115,20 @@ export default function ListingDetailPage() {
 
   if (loading) {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-16 text-center space-y-4">
-        <div className="w-12 h-12 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-sm font-semibold text-slate-500">Loading package details and availability...</p>
+      <div className="max-w-6xl mx-auto px-4 py-20 text-center space-y-4">
+        <div className="w-12 h-12 border-4 border-gold-400 border-t-transparent rounded-full animate-spin mx-auto" />
+        <p className="text-xs uppercase tracking-widest font-cinzel text-gold-400">Loading First-Class Suite & Availability...</p>
       </div>
     );
   }
 
   if (!listing) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center space-y-4">
-        <h2 className="text-2xl font-bold text-slate-900">Package Not Found</h2>
-        <p className="text-xs text-slate-500">The requested offering might have been unpublished or removed.</p>
-        <Link href="/search" className="inline-block px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-semibold">
-          Return to Discovery
+      <div className="max-w-4xl mx-auto px-4 py-20 text-center space-y-4">
+        <h2 className="text-2xl font-cinzel font-bold text-white">Expedition Not Found</h2>
+        <p className="text-xs text-slate-400">The requested suite or offering might have been unpublished or reserved.</p>
+        <Link href="/search" className="inline-block px-5 py-2.5 bg-gradient-to-r from-gold-500 to-amber-600 text-obsidian-950 rounded-xl text-xs font-black uppercase tracking-wider">
+          Return to Fleet Discovery
         </Link>
       </div>
     );
@@ -146,37 +149,38 @@ export default function ListingDetailPage() {
   const currentPrice = selectedPkg?.discountedPrice || selectedPkg?.price || listing.basePrice;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 bg-obsidian-950 text-slate-100">
+      
       {/* BREADCRUMB & HEADER TITLE */}
       <div className="space-y-3">
-        <div className="flex items-center gap-2 text-xs font-medium text-slate-400">
-          <Link href="/" className="hover:text-emerald-600">Home</Link>
-          <ChevronRight className="w-3 h-3" />
-          <Link href={`/search?destination=${listing.destination?.slug}`} className="hover:text-emerald-600">
+        <div className="flex items-center gap-2 text-xs font-light text-slate-400">
+          <Link href="/" className="hover:text-gold-400 transition">Royal Fleet</Link>
+          <ChevronRight className="w-3 h-3 text-gold-500/50" />
+          <Link href={`/search?destination=${listing.destination?.slug}`} className="hover:text-gold-400 transition">
             {listing.destination?.name}
           </Link>
-          <ChevronRight className="w-3 h-3" />
-          <span className="text-slate-600 truncate">{listing.category?.name}</span>
+          <ChevronRight className="w-3 h-3 text-gold-500/50" />
+          <span className="text-gold-300 font-medium truncate">{listing.category?.name}</span>
         </div>
 
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
+          <div className="space-y-1.5">
+            <h1 className="font-cinzel text-2xl sm:text-4xl font-black text-white leading-tight">
               {listing.title}
             </h1>
-            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
-              <span className="flex items-center gap-1 font-semibold text-slate-800">
-                <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                {listing.rating.toFixed(1)} ({listing.reviewCount} reviews)
+            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400 font-light">
+              <span className="flex items-center gap-1 font-semibold text-gold-400">
+                <Star className="w-3.5 h-3.5 fill-gold-400 text-gold-400" />
+                {listing.rating.toFixed(1)} ({listing.reviewCount} VIP Reviews)
               </span>
-              <span>•</span>
+              <span className="text-gold-500/50">•</span>
               <span className="flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-emerald-600" />
+                <MapPin className="w-3.5 h-3.5 text-gold-400" />
                 {listing.destination?.name}, {listing.destination?.region}
               </span>
-              <span>•</span>
+              <span className="text-gold-500/50">•</span>
               <span className="flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5 text-slate-400" />
+                <Clock className="w-3.5 h-3.5 text-gold-400" />
                 {listing.durationDays} Days / {listing.durationDays - 1} Nights
               </span>
             </div>
@@ -185,10 +189,10 @@ export default function ListingDetailPage() {
           <div className="flex items-center gap-2">
             <button
               onClick={handleFavoriteToggle}
-              className={`p-2.5 rounded-xl border transition ${isFavorited ? 'bg-rose-50 border-rose-200 text-rose-600' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'}`}
+              className={`p-3 rounded-xl border transition ${isFavorited ? 'bg-gold-500/20 border-gold-500 text-gold-400' : 'bg-obsidian-900 border-gold-500/20 text-slate-300 hover:border-gold-400'}`}
               title="Save to favorites"
             >
-              <Heart className={`w-4 h-4 ${isFavorited ? 'fill-rose-600' : ''}`} />
+              <Heart className={`w-4 h-4 ${isFavorited ? 'fill-gold-400 text-gold-400' : ''}`} />
             </button>
             <button
               onClick={() => {
@@ -199,7 +203,7 @@ export default function ListingDetailPage() {
                   alert('Listing URL copied to clipboard!');
                 }
               }}
-              className="p-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-slate-300 transition"
+              className="p-3 rounded-xl border border-gold-500/20 bg-obsidian-900 text-slate-300 hover:border-gold-400 transition"
               title="Share listing"
             >
               <Share2 className="w-4 h-4" />
@@ -208,27 +212,28 @@ export default function ListingDetailPage() {
         </div>
       </div>
 
-      {/* PHOTO GALLERY */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 rounded-2xl overflow-hidden shadow-sm">
-        <div className="md:col-span-2 h-[340px] sm:h-[420px] relative">
+      {/* LUXURY PHOTO GALLERY */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 rounded-2xl overflow-hidden border border-gold-500/25 shadow-obsidian-lg">
+        <div className="md:col-span-2 h-[340px] sm:h-[440px] relative">
           <img
             src={images[activeImageIndex]}
             alt={listing.title}
             className="w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-transparent to-transparent opacity-60" />
           {activeDiscount && (
-            <div className="absolute top-4 left-4 inline-flex items-center gap-1 bg-rose-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+            <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 bg-gradient-to-r from-gold-500 to-amber-600 text-obsidian-950 text-xs font-black uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-lg">
               <Tag className="w-3.5 h-3.5" />
-              {activeDiscount.percentage ? `${activeDiscount.percentage}% DISCOUNT ACTIVE` : 'SPECIAL OFFER'}
+              {activeDiscount.percentage ? `${activeDiscount.percentage}% VIP PRIVILEGE ACTIVE` : 'EXCLUSIVE OFFER'}
             </div>
           )}
         </div>
-        <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-y-auto max-h-[420px]">
+        <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-y-auto max-h-[440px] p-2 bg-obsidian-900">
           {images.map((img: string, idx: number) => (
             <button
               key={idx}
               onClick={() => setActiveImageIndex(idx)}
-              className={`h-24 md:h-[132px] w-full shrink-0 rounded-xl overflow-hidden border-2 transition ${activeImageIndex === idx ? 'border-emerald-600 ring-2 ring-emerald-500/30' : 'border-transparent opacity-80 hover:opacity-100'}`}
+              className={`h-24 md:h-[136px] w-full shrink-0 rounded-xl overflow-hidden border-2 transition ${activeImageIndex === idx ? 'border-gold-400 ring-2 ring-gold-500/30' : 'border-transparent opacity-60 hover:opacity-100'}`}
             >
               <img src={img} alt="Gallery thumbnail" className="w-full h-full object-cover" />
             </button>
@@ -236,193 +241,170 @@ export default function ListingDetailPage() {
         </div>
       </div>
 
-      {/* TWO COLUMN CONTENT: DETAILS & BOOKING CARD */}
+      {/* TWO COLUMN CONTENT: SUITE DETAILS & BOARDING PASS SUMMARY */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* LEFT COLUMN: 2 SPANS */}
         <div className="lg:col-span-2 space-y-8">
-          {/* VERIFIED PROVIDER SUMMARY */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 flex items-center justify-between gap-4 shadow-sm">
-            <div className="flex items-center gap-3.5">
+          
+          {/* VERIFIED OPERATOR SEAL */}
+          <div className="glass-card rounded-2xl border border-gold-500/20 p-5 flex items-center justify-between gap-4 shadow-sm">
+            <div className="flex items-center gap-4">
               <img
                 src={listing.provider?.logoUrl || 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=200&q=80'}
                 alt={listing.provider?.businessName}
-                className="w-14 h-14 rounded-2xl object-cover border border-slate-100 shadow-sm"
+                className="w-14 h-14 rounded-2xl object-cover border border-gold-500/30 shadow-sm"
               />
               <div>
                 <div className="flex items-center gap-1.5">
-                  <h3 className="text-sm font-bold text-slate-900">{listing.provider?.businessName}</h3>
+                  <h3 className="text-sm font-cinzel font-bold text-white">{listing.provider?.businessName}</h3>
                   {listing.provider?.verificationStatus === 'APPROVED' && (
-                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    <ShieldCheck className="w-4 h-4 text-gold-400" />
                   )}
                 </div>
-                <p className="text-xs text-slate-500 mt-0.5">{listing.provider?.city}, {listing.provider?.country}</p>
-                <div className="flex items-center gap-2 mt-1 text-[11px] font-semibold text-emerald-700">
-                  <span>★ {listing.provider?.rating.toFixed(1)} Operator Rating</span>
+                <p className="text-xs text-slate-400 mt-0.5">{listing.provider?.city}, {listing.provider?.country}</p>
+                <div className="flex items-center gap-2 mt-1 text-[11px] font-semibold text-gold-400">
+                  <span>★ {listing.provider?.rating.toFixed(1)} Accredited Operator Rating</span>
                   <span>•</span>
-                  <span>{listing.provider?.reviewCount} completed expeditions</span>
+                  <span>NTN Verified Fleet</span>
                 </div>
               </div>
             </div>
 
             <Link
-              href={`/provider/${listing.provider?.id}`}
-              className="px-3.5 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition"
+              href={`/provider/${listing.providerId}`}
+              className="px-3.5 py-1.5 rounded-xl border border-gold-500/30 text-xs font-bold text-gold-300 hover:border-gold-400 transition shrink-0"
             >
-              View Profile
+              Operator Dossier
             </Link>
           </div>
 
-          {/* OVERVIEW & HIGHLIGHTS */}
-          <div className="space-y-4">
-            <h2 className="text-lg font-bold text-slate-900">Experience Overview</h2>
-            <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-line">
-              {listing.fullDescription}
+          {/* DESCRIPTION */}
+          <div className="glass-card rounded-2xl border border-white/5 p-6 space-y-4">
+            <h3 className="text-lg font-cinzel font-bold text-white">Expedition Narrative & Scope</h3>
+            <p className="text-sm text-slate-300 leading-relaxed font-light whitespace-pre-line">
+              {listing.fullDescription || listing.shortDescription}
             </p>
-
-            {highlights.length > 0 && (
-              <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 space-y-2.5">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-900 flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-emerald-600" />
-                  Key Highlights
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {highlights.map((h, i) => (
-                    <div key={i} className="flex items-center gap-2 text-xs font-medium text-emerald-950">
-                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
-                      <span>{h}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
 
-          {/* INCLUSIONS & EXCLUSIONS */}
-          <div className="space-y-4">
-            <h2 className="text-lg font-bold text-slate-900">What's Included & Excluded</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Inclusions */}
-              <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-emerald-600" />
-                  Inclusions
-                </h4>
-                <ul className="space-y-2">
-                  {inclusions.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
-                      <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Exclusions */}
-              <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-                  <XIcon className="w-4 h-4 text-slate-400" />
-                  Exclusions
-                </h4>
-                <ul className="space-y-2">
-                  {exclusions.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-xs text-slate-500">
-                      <XIcon className="w-3.5 h-3.5 text-rose-400 shrink-0 mt-0.5" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* ITINERARY */}
-          {listing.itineraryItems && listing.itineraryItems.length > 0 && (
-            <div className="space-y-4">
-              <h2 className="text-lg font-bold text-slate-900">Day-by-Day Itinerary</h2>
-              <div className="space-y-3">
-                {listing.itineraryItems.map((item: any) => (
-                  <div key={item.id} className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded-lg bg-emerald-100 text-emerald-800 text-[11px] font-bold">
-                        Day {item.dayNumber}
-                      </span>
-                      <h4 className="text-sm font-bold text-slate-900">{item.title}</h4>
-                    </div>
-                    <p className="text-xs text-slate-600 leading-relaxed pl-12">
-                      {item.description}
-                    </p>
-                    <div className="flex items-center gap-4 text-[11px] font-medium text-slate-400 pl-12 pt-1">
-                      {item.mealsIncluded && <span>🍴 {item.mealsIncluded}</span>}
-                      {item.accommodation && <span>🏨 {item.accommodation}</span>}
-                    </div>
+          {/* HIGHLIGHTS */}
+          {highlights.length > 0 && (
+            <div className="glass-card rounded-2xl border border-white/5 p-6 space-y-4">
+              <h3 className="text-lg font-cinzel font-bold text-white">First-Class Itinerary Highlights</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {highlights.map((h, i) => (
+                  <div key={i} className="flex items-start gap-2.5 text-xs text-slate-300">
+                    <Check className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
+                    <span className="font-light">{h}</span>
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          {/* REVIEWS & RATINGS */}
-          <div className="space-y-4 pt-6 border-t border-slate-200">
+          {/* INCLUSIONS & EXCLUSIONS */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="glass-card rounded-2xl border border-gold-500/20 p-6 space-y-3">
+              <h4 className="text-xs font-cinzel font-bold text-gold-300 uppercase tracking-widest flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-gold-400" />
+                Royal Inclusions
+              </h4>
+              <ul className="space-y-2 text-xs text-slate-300">
+                {inclusions.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-gold-400 font-bold">•</span>
+                    <span className="font-light">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="glass-card rounded-2xl border border-white/5 p-6 space-y-3">
+              <h4 className="text-xs font-cinzel font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+                <XIcon className="w-4 h-4 text-rose-400" />
+                Exclusions & Requirements
+              </h4>
+              <ul className="space-y-2 text-xs text-slate-400">
+                {exclusions.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-rose-400 font-bold">•</span>
+                    <span className="font-light">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* VERIFIED VIP REVIEWS */}
+          <div className="glass-card rounded-2xl border border-white/5 p-6 space-y-5">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-slate-900">Verified Customer Reviews</h2>
-              <span className="text-xs font-bold text-emerald-600">
-                ★ {listing.rating.toFixed(1)} / 5.0
+              <div>
+                <h3 className="text-lg font-cinzel font-bold text-white">Verified Guest Experiences</h3>
+                <p className="text-xs text-slate-400">Only travelers with completed bookings can post verified reviews</p>
+              </div>
+              <span className="text-xs font-bold text-gold-400 flex items-center gap-1">
+                <Star className="w-4 h-4 fill-gold-400 text-gold-400" />
+                {listing.rating.toFixed(1)} / 5.0
               </span>
             </div>
 
             {listing.reviews && listing.reviews.length > 0 ? (
               <div className="space-y-4">
                 {listing.reviews.map((rev: any) => (
-                  <div key={rev.id} className="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
+                  <div key={rev.id} className="p-4 rounded-xl bg-obsidian-900 border border-gold-500/15 space-y-2">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2.5">
                         {rev.user?.avatarUrl ? (
                           <img src={rev.user.avatarUrl} alt="" className="w-7 h-7 rounded-full object-cover" />
                         ) : (
-                          <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-600">
+                          <div className="w-7 h-7 rounded-full bg-gold-500/20 text-gold-400 flex items-center justify-center text-xs font-bold">
                             {rev.user?.firstName?.[0]}
                           </div>
                         )}
                         <div>
-                          <span className="text-xs font-bold text-slate-900">{rev.user?.firstName} {rev.user?.lastName}</span>
-                          <span className="block text-[10px] text-emerald-600 font-semibold">Verified Traveler</span>
+                          <span className="text-xs font-bold text-white">{rev.user?.firstName} {rev.user?.lastName}</span>
+                          <span className="block text-[10px] text-gold-400 font-light">Verified VIP Explorer</span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-1 text-xs font-bold text-amber-500">
-                        <Star className="w-3.5 h-3.5 fill-amber-500" />
+                      <div className="flex items-center gap-1 text-xs font-bold text-gold-400">
+                        <Star className="w-3.5 h-3.5 fill-gold-400" />
                         <span>{rev.rating}.0</span>
                       </div>
                     </div>
-                    <h5 className="text-xs font-bold text-slate-900">{rev.title}</h5>
-                    <p className="text-xs text-slate-600 leading-relaxed">{rev.comment}</p>
+                    <h5 className="text-xs font-bold text-slate-200">{rev.title}</h5>
+                    <p className="text-xs text-slate-300 leading-relaxed font-light">{rev.comment}</p>
 
                     {rev.providerResponse && (
-                      <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700 space-y-1">
-                        <span className="font-bold text-slate-900 block text-[11px]">Provider Response:</span>
-                        <p>{rev.providerResponse}</p>
+                      <div className="p-3 rounded-lg bg-obsidian-950 border border-gold-500/20 text-xs text-slate-300 space-y-1">
+                        <span className="font-bold text-gold-400 block text-[11px]">Operator Response:</span>
+                        <p className="font-light">{rev.providerResponse}</p>
                       </div>
                     )}
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-slate-400 italic">No reviews yet for this offering.</p>
+              <p className="text-xs text-slate-500 italic">No verified guest reviews yet for this offering.</p>
             )}
           </div>
         </div>
 
-        {/* RIGHT COLUMN: BOOKING / ENQUIRY STICKY CARD */}
-        <aside className="sticky top-24 bg-white rounded-3xl border border-slate-200 p-6 shadow-xl space-y-5">
-          <div className="space-y-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Starting Price</span>
+        {/* RIGHT COLUMN: FIRST CLASS BOARDING PASS SUMMARY CARD */}
+        <aside className="sticky top-24 glass-obsidian rounded-3xl border border-gold-500/35 p-6 shadow-2xl space-y-6">
+          <div className="space-y-1.5 pb-4 border-b border-gold-500/20">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-gold-400 font-cinzel">First Class Suite</span>
+              <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-slate-400 bg-obsidian-900 px-2 py-0.5 rounded border border-white/5">
+                <Plane className="w-3 h-3 text-gold-400" /> Confirmed Fleet
+              </span>
+            </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-black text-slate-900">
+              <span className="text-3xl font-cinzel font-black text-white">
                 {listing.currency} {currentPrice.toLocaleString()}
               </span>
-              <span className="text-xs text-slate-400 font-medium">/ person</span>
+              <span className="text-xs text-slate-400 font-light">/ explorer</span>
             </div>
             {activeDiscount && (
-              <span className="inline-block text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full mt-1">
+              <span className="inline-block text-[11px] font-bold text-gold-300 bg-gold-500/10 border border-gold-500/30 px-2.5 py-0.5 rounded-full mt-1">
                 Save {activeDiscount.percentage}% with promo {activeDiscount.code}
               </span>
             )}
@@ -430,29 +412,29 @@ export default function ListingDetailPage() {
 
           {/* PACKAGE TIERS IF AVAILABLE */}
           {listing.packages && listing.packages.length > 0 && (
-            <div className="space-y-2 pt-3 border-t border-slate-100">
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
-                Select Package Tier
+            <div className="space-y-2">
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-gold-400 font-cinzel">
+                Select Suite Tier
               </label>
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 {listing.packages.map((pkg: any) => (
                   <button
                     key={pkg.id}
                     onClick={() => setSelectedPackageId(pkg.id)}
-                    className={`w-full p-2.5 rounded-xl border text-left transition ${
+                    className={`w-full p-3 rounded-xl border text-left transition ${
                       selectedPackageId === pkg.id
-                        ? 'border-emerald-600 bg-emerald-50/50 ring-1 ring-emerald-500'
-                        : 'border-slate-200 hover:border-slate-300'
+                        ? 'border-gold-400 bg-gold-500/10 ring-1 ring-gold-400/50'
+                        : 'border-white/10 hover:border-gold-500/30 bg-obsidian-900/60'
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-900">{pkg.name}</span>
-                      <span className="text-xs font-black text-emerald-700">
+                      <span className="text-xs font-bold text-white">{pkg.name}</span>
+                      <span className="text-xs font-black text-gold-300">
                         PKR {(pkg.discountedPrice || pkg.price).toLocaleString()}
                       </span>
                     </div>
                     {pkg.description && (
-                      <p className="text-[11px] text-slate-500 mt-0.5">{pkg.description}</p>
+                      <p className="text-[11px] text-slate-400 mt-1 font-light">{pkg.description}</p>
                     )}
                   </button>
                 ))}
@@ -461,70 +443,70 @@ export default function ListingDetailPage() {
           )}
 
           {/* TRIP HIGHLIGHT SPECS */}
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-2 text-xs">
-            <div className="flex justify-between text-slate-600">
+          <div className="p-4 rounded-2xl bg-obsidian-900/80 border border-gold-500/15 space-y-2 text-xs">
+            <div className="flex justify-between text-slate-400">
               <span>Duration:</span>
-              <span className="font-semibold text-slate-900">{listing.durationDays} Days</span>
+              <span className="font-semibold text-slate-200">{listing.durationDays} Days</span>
             </div>
-            <div className="flex justify-between text-slate-600">
+            <div className="flex justify-between text-slate-400">
               <span>Max Capacity:</span>
-              <span className="font-semibold text-slate-900">{listing.maxGuests} Travelers</span>
+              <span className="font-semibold text-slate-200">{listing.maxGuests} Travelers</span>
             </div>
-            <div className="flex justify-between text-slate-600">
-              <span>Meeting Point:</span>
-              <span className="font-semibold text-slate-900 truncate max-w-[150px]">{listing.meetingPoint || 'Central Pick-up'}</span>
+            <div className="flex justify-between text-slate-400">
+              <span>Rendezvous Hub:</span>
+              <span className="font-semibold text-slate-200 truncate max-w-[150px]">{listing.meetingPoint || 'Central Airport / VIP Terminal'}</span>
             </div>
           </div>
 
           {/* ACTIONS */}
-          <div className="space-y-2 pt-2">
+          <div className="space-y-3 pt-2">
             <button
               onClick={() => setBookingModalOpen(true)}
-              className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-2xl shadow-lg shadow-emerald-600/20 transition hover:scale-[1.01] flex items-center justify-center gap-2"
+              className="w-full py-4 bg-gradient-to-r from-gold-400 via-gold-500 to-amber-600 text-obsidian-950 font-black text-xs uppercase tracking-widest rounded-xl shadow-gold-md transition hover:scale-[1.02] flex items-center justify-center gap-2"
             >
-              <CalendarCheck2 className="w-4 h-4" />
-              Request Booking / Enquiry
+              <CalendarCheck2 className="w-4 h-4 stroke-[2.5]" />
+              Reserve Suite / Dispatch Enquiry
             </button>
-            <p className="text-[11px] text-center text-slate-400">
-              No immediate card charge. Provider confirms availability first.
+            <p className="text-[11px] text-center text-slate-400 font-light">
+              Zero advance charge. The certified operator confirms slot & provisions first.
             </p>
           </div>
         </aside>
       </div>
 
-      {/* BOOKING / ENQUIRY MODAL */}
+      {/* BOOKING / ENQUIRY MODAL WITH BOARDING PASS DESIGN */}
       {bookingModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative border border-slate-100 space-y-5">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-obsidian-999/80 backdrop-blur-md animate-in fade-in">
+          <div className="bg-obsidian-900 border border-gold-500/40 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative space-y-5 text-slate-100">
             <button
               onClick={() => {
                 setBookingModalOpen(false);
                 setBookingSuccess(null);
               }}
-              className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition"
+              className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-white hover:bg-obsidian-850 transition"
             >
               <XIcon className="w-5 h-5" />
             </button>
 
             {bookingSuccess ? (
               <div className="text-center py-6 space-y-4">
-                <div className="w-14 h-14 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center mx-auto">
+                <div className="w-14 h-14 bg-gold-500/20 text-gold-400 rounded-2xl flex items-center justify-center mx-auto border border-gold-500/40 shadow-gold-sm">
                   <Check className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">Request Successfully Submitted!</h3>
-                <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
-                  Your enquiry <span className="font-bold text-slate-900">#{bookingSuccess.bookingReference}</span> has been dispatched to {listing.provider?.businessName}. You can track status and chat in real-time.
+                <h3 className="text-xl font-cinzel font-bold text-white">Boarding Pass Request Dispatched!</h3>
+                <p className="text-xs text-slate-300 max-w-sm mx-auto leading-relaxed font-light">
+                  Your reservation reference <span className="font-bold text-gold-400">#{bookingSuccess.bookingReference}</span> has been routed directly to {listing.provider?.businessName}. You can track status and communicate in real-time.
                 </p>
                 <div className="pt-2 flex justify-center gap-3">
                   <Link
                     href="/account/bookings"
-                    className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition"
+                    className="px-5 py-2.5 bg-gradient-to-r from-gold-500 to-amber-600 text-obsidian-950 text-xs font-black uppercase tracking-wider rounded-xl transition"
                   >
-                    Go to My Bookings
+                    View My Bookings
                   </Link>
                   <button
                     onClick={() => setBookingModalOpen(false)}
-                    className="px-4 py-2.5 bg-slate-100 text-slate-700 text-xs font-bold rounded-xl hover:bg-slate-200 transition"
+                    className="px-4 py-2.5 bg-obsidian-800 text-slate-300 text-xs font-bold rounded-xl hover:bg-obsidian-700 transition"
                   >
                     Close
                   </button>
@@ -533,32 +515,32 @@ export default function ListingDetailPage() {
             ) : (
               <>
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">Request Form</span>
-                  <h3 className="text-lg font-bold text-slate-900">{listing.title}</h3>
-                  <p className="text-xs text-slate-500">Provider: {listing.provider?.businessName}</p>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-gold-400 font-cinzel">First-Class Reservation</span>
+                  <h3 className="text-lg font-cinzel font-bold text-white">{listing.title}</h3>
+                  <p className="text-xs text-slate-400">Fleet Operator: {listing.provider?.businessName}</p>
                 </div>
 
                 {bookingError && (
-                  <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium">
+                  <div className="p-3 rounded-xl bg-rose-950/50 border border-rose-500/40 text-rose-300 text-xs font-medium">
                     {bookingError}
                   </div>
                 )}
 
                 <form onSubmit={handleBookingSubmit} className="space-y-4 text-xs">
                   <div>
-                    <label className="block font-semibold text-slate-700 mb-1">Desired Start Date</label>
+                    <label className="block font-semibold text-slate-300 mb-1">Departure Date</label>
                     <input
                       type="date"
                       required
                       value={startDate}
                       onChange={(e) => setStartDate(e.target.value)}
                       min={new Date().toISOString().split('T')[0]}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none font-semibold text-slate-900"
+                      className="w-full px-3 py-2.5 bg-obsidian-950 border border-gold-500/30 rounded-xl focus:ring-1 focus:ring-gold-400 focus:outline-none font-semibold text-white"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-slate-700 mb-1">Number of Guests</label>
+                    <label className="block font-semibold text-slate-300 mb-1">Number of Guests in Suite</label>
                     <input
                       type="number"
                       required
@@ -566,36 +548,36 @@ export default function ListingDetailPage() {
                       max={listing.maxGuests || 20}
                       value={guestsCount}
                       onChange={(e) => setGuestsCount(parseInt(e.target.value, 10))}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none font-semibold text-slate-900"
+                      className="w-full px-3 py-2.5 bg-obsidian-950 border border-gold-500/30 rounded-xl focus:ring-1 focus:ring-gold-400 focus:outline-none font-semibold text-white"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-slate-700 mb-1">Special Inquiries or Requirements</label>
+                    <label className="block font-semibold text-slate-300 mb-1">Special Concierge Requests</label>
                     <textarea
                       rows={3}
                       value={customerNotes}
                       onChange={(e) => setCustomerNotes(e.target.value)}
-                      placeholder="e.g. Diet requirements, pick-up point, photography assistance, private room preference..."
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none placeholder:text-slate-400"
+                      placeholder="e.g. VIP helicopter transfer, gourmet diet, photography guide, luggage assistance..."
+                      className="w-full px-3 py-2.5 bg-obsidian-950 border border-gold-500/30 rounded-xl focus:ring-1 focus:ring-gold-400 focus:outline-none placeholder:text-slate-600 text-white"
                     />
                   </div>
 
                   {/* PRICE ESTIMATE SUMMARY */}
-                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5">
-                    <div className="flex justify-between text-slate-600">
+                  <div className="p-3.5 rounded-xl bg-obsidian-950 border border-gold-500/20 space-y-1.5">
+                    <div className="flex justify-between text-slate-400">
                       <span>Unit Rate ({guestsCount} guests):</span>
-                      <span className="font-semibold">{listing.currency} {(currentPrice * guestsCount).toLocaleString()}</span>
+                      <span className="font-semibold text-slate-200">{listing.currency} {(currentPrice * guestsCount).toLocaleString()}</span>
                     </div>
                     {activeDiscount && (
-                      <div className="flex justify-between text-rose-600 font-semibold">
-                        <span>Discount ({activeDiscount.percentage}%):</span>
+                      <div className="flex justify-between text-gold-400 font-semibold">
+                        <span>VIP Discount ({activeDiscount.percentage}%):</span>
                         <span>- {listing.currency} {((currentPrice * guestsCount * activeDiscount.percentage) / 100).toLocaleString()}</span>
                       </div>
                     )}
-                    <div className="flex justify-between font-black text-slate-900 pt-1 border-t border-slate-200 text-sm">
-                      <span>Estimated Total:</span>
-                      <span>
+                    <div className="flex justify-between font-black text-white pt-2 border-t border-gold-500/20 text-sm">
+                      <span>Total Suite Estimate:</span>
+                      <span className="text-gold-300 font-cinzel text-base">
                         {listing.currency}{' '}
                         {activeDiscount
                           ? (currentPrice * guestsCount * (1 - activeDiscount.percentage / 100)).toLocaleString()
@@ -607,9 +589,9 @@ export default function ListingDetailPage() {
                   <button
                     type="submit"
                     disabled={bookingSubmitting}
-                    className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl shadow-md transition disabled:opacity-50"
+                    className="w-full py-3.5 bg-gradient-to-r from-gold-400 via-gold-500 to-amber-600 text-obsidian-950 font-black text-xs uppercase tracking-widest rounded-xl shadow-gold-sm transition hover:scale-[1.01] disabled:opacity-50"
                   >
-                    {bookingSubmitting ? 'Submitting Request...' : 'Submit Request to Provider'}
+                    {bookingSubmitting ? 'Dispatching to Concierge...' : 'Confirm & Dispatch Reservation'}
                   </button>
                 </form>
               </>
