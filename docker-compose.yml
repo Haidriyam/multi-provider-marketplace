@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database for Modular Monolith
+  postgres:
+    image: postgres:16-alpine
+    container_name: marketplace-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: marketplace_admin
+      POSTGRES_PASSWORD: marketplace_secure_password_2026
+      POSTGRES_DB: marketplace_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U marketplace_admin -d marketplace_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Modular Monolith REST API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: marketplace-backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: 5000
+      NODE_ENV: production
+      DATABASE_URL: postgresql://marketplace_admin:marketplace_secure_password_2026@postgres:5432/marketplace_db?schema=public
+      JWT_SECRET: super-secret-jwt-key-phase1-production-ready
+      CORS_ORIGIN: "*"
+    ports:
+      - "5000:5000"
+
+  # Next.js Web Application
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: marketplace-web
+    restart: always
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:5000/api
+      PORT: 3000
+    ports:
+      - "3000:3000"
+
+volumes:
+  pgdata:

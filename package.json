@@ -1,0 +1,28 @@
+{
+  "name": "faraday-marketplace-monorepo",
+  "version": "1.0.0",
+  "description": "Multi-Provider Marketplace Platform - Phase 1 MVP",
+  "private": true,
+  "scripts": {
+    "setup:backend": "cd backend && npm install && npm run setup",
+    "setup:web": "cd web && npm install && npm run build",
+    "setup": "npm run setup:backend && npm run setup:web",
+    "start:backend": "cd backend && npm start",
+    "start:web": "cd web && npm start",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:web": "cd web && npm run dev",
+    "build": "cd backend && npm run build && cd ../web && npm run build"
+  },
+  "keywords": [
+    "marketplace",
+    "multi-provider",
+    "nextjs",
+    "react-native",
+    "expo",
+    "prisma",
+    "postgresql",
+    "modular-monolith"
+  ],
+  "author": "Antigravity Engineering",
+  "license": "Client-Proprietary"
+}
