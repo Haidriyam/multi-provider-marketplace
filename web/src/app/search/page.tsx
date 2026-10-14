@@ -119,19 +119,21 @@ function SearchContent() {
   ].filter(Boolean).length;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 bg-obsidian-950 text-slate-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 bg-[#faf8f5] text-slate-900 w-full overflow-hidden">
       
       {/* SEARCH HEADER & SEARCH BAR */}
-      <div className="glass-obsidian rounded-2xl border border-gold-500/25 p-4 sm:p-5 shadow-2xl space-y-4">
-        <div className="flex flex-col md:flex-row items-center gap-3">
+      <div className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 shadow-xs space-y-3.5">
+        <div className="flex flex-col md:flex-row items-center gap-2.5 sm:gap-3">
+          
+          {/* Keyword Search Input */}
           <div className="relative flex-1 w-full">
-            <Search className="w-4 h-4 text-gold-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               placeholder="Search by peaks, private charters, suite titles, or operator..."
-              className="w-full pl-10 pr-4 py-3 text-sm bg-obsidian-950 border border-gold-500/25 rounded-xl focus:ring-1 focus:ring-gold-400 focus:outline-none text-white placeholder:text-slate-500"
+              className="w-full pl-10 pr-4 py-2.5 sm:py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200/90 rounded-xl focus:border-gold-500 focus:outline-none text-slate-900 placeholder:text-slate-400"
             />
           </div>
 
@@ -139,40 +141,40 @@ function SearchContent() {
             {/* Mobile Filter Button */}
             <button
               onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-              className="md:hidden flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-obsidian-900 border border-gold-500/30 text-gold-300 text-xs font-bold rounded-xl"
+              className="md:hidden flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl transition"
             >
-              <Filter className="w-4 h-4" />
+              <Filter className="w-4 h-4 text-gold-700" />
               Filters ({activeFiltersCount})
             </button>
 
             {/* Sort Dropdown */}
-            <div className="flex items-center gap-1.5 bg-obsidian-950 border border-gold-500/25 rounded-xl px-3 py-2 text-xs font-semibold text-slate-200">
-              <ArrowUpDown className="w-3.5 h-3.5 text-gold-400" />
+            <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200/90 rounded-xl px-2.5 sm:px-3 py-2 text-xs font-semibold text-slate-800">
+              <ArrowUpDown className="w-3.5 h-3.5 text-gold-600 shrink-0" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-transparent focus:outline-none cursor-pointer text-gold-300 font-semibold"
+                className="bg-transparent focus:outline-none cursor-pointer text-slate-900 font-bold"
               >
-                <option value="featured" className="bg-obsidian-950 text-slate-200">Featured Fleet</option>
-                <option value="price_asc" className="bg-obsidian-950 text-slate-200">Rate: Low to High</option>
-                <option value="price_desc" className="bg-obsidian-950 text-slate-200">Rate: High to Low</option>
-                <option value="rating_desc" className="bg-obsidian-950 text-slate-200">Highest Rated VIP</option>
-                <option value="newest" className="bg-obsidian-950 text-slate-200">Newest Added</option>
+                <option value="featured">Featured Fleet</option>
+                <option value="price_asc">Rate: Low to High</option>
+                <option value="price_desc">Rate: High to Low</option>
+                <option value="rating_desc">Highest Rated VIP</option>
+                <option value="newest">Newest Added</option>
               </select>
             </div>
 
             {/* View Mode Toggle */}
-            <div className="hidden sm:flex items-center border border-gold-500/25 rounded-xl overflow-hidden p-0.5 bg-obsidian-950">
+            <div className="hidden sm:flex items-center border border-slate-200 rounded-xl overflow-hidden p-0.5 bg-slate-50">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-lg transition ${viewMode === 'grid' ? 'bg-gold-500/20 text-gold-400' : 'text-slate-500 hover:text-slate-300'}`}
+                className={`p-1.5 sm:p-2 rounded-lg transition ${viewMode === 'grid' ? 'bg-white shadow-xs text-gold-700 font-bold' : 'text-slate-400 hover:text-slate-600'}`}
                 title="Grid View"
               >
                 <LayoutGrid className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setViewMode('list')}
-                className={`p-2 rounded-lg transition ${viewMode === 'list' ? 'bg-gold-500/20 text-gold-400' : 'text-slate-500 hover:text-slate-300'}`}
+                className={`p-1.5 sm:p-2 rounded-lg transition ${viewMode === 'list' ? 'bg-white shadow-xs text-gold-700 font-bold' : 'text-slate-400 hover:text-slate-600'}`}
                 title="List View"
               >
                 <List className="w-4 h-4" />
@@ -183,41 +185,41 @@ function SearchContent() {
 
         {/* Active Filters Pill Row */}
         {activeFiltersCount > 0 && (
-          <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-gold-500/15 text-xs">
-            <span className="text-slate-400 font-light">Active parameters:</span>
+          <div className="flex flex-wrap items-center gap-2 pt-2.5 border-t border-slate-100 text-xs">
+            <span className="text-slate-500 font-light">Active parameters:</span>
             {selectedDestination && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 font-semibold text-xs">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gold-50 border border-gold-200 text-gold-900 font-semibold text-xs">
                 Destination: {destinations.find(d => d.slug === selectedDestination)?.name || selectedDestination}
-                <button onClick={() => setSelectedDestination('')}><X className="w-3 h-3 hover:text-white" /></button>
+                <button onClick={() => setSelectedDestination('')}><X className="w-3 h-3 hover:text-slate-950" /></button>
               </span>
             )}
             {selectedCategory && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 font-semibold text-xs">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gold-50 border border-gold-200 text-gold-900 font-semibold text-xs">
                 Collection: {categories.find(c => c.slug === selectedCategory)?.name || selectedCategory}
-                <button onClick={() => setSelectedCategory('')}><X className="w-3 h-3 hover:text-white" /></button>
+                <button onClick={() => setSelectedCategory('')}><X className="w-3 h-3 hover:text-slate-950" /></button>
               </span>
             )}
             {verifiedOnly && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gold-500/20 border border-gold-500/40 text-gold-300 font-semibold text-xs">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 font-semibold text-xs">
                 Verified Fleet Only
-                <button onClick={() => setVerifiedOnly(false)}><X className="w-3 h-3 hover:text-white" /></button>
+                <button onClick={() => setVerifiedOnly(false)}><X className="w-3 h-3 hover:text-slate-950" /></button>
               </span>
             )}
             {hasDiscount && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 font-semibold text-xs">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 font-semibold text-xs">
                 VIP Privileges Only
-                <button onClick={() => setHasDiscount(false)}><X className="w-3 h-3 hover:text-white" /></button>
+                <button onClick={() => setHasDiscount(false)}><X className="w-3 h-3 hover:text-slate-950" /></button>
               </span>
             )}
             {minRating && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 font-semibold text-xs">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gold-50 border border-gold-200 text-gold-900 font-semibold text-xs">
                 {minRating}+ Stars
-                <button onClick={() => setMinRating('')}><X className="w-3 h-3 hover:text-white" /></button>
+                <button onClick={() => setMinRating('')}><X className="w-3 h-3 hover:text-slate-950" /></button>
               </span>
             )}
             <button
               onClick={clearFilters}
-              className="text-gold-400 hover:text-gold-300 font-semibold ml-auto underline"
+              className="text-gold-700 hover:text-gold-800 font-semibold ml-auto underline"
             >
               Reset All
             </button>
@@ -228,29 +230,29 @@ function SearchContent() {
       {/* MAIN TWO COLUMN LAYOUT: FILTERS & RESULTS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-start">
         
-        {/* DESKTOP FILTERS SIDEBAR */}
-        <aside className={`md:block ${mobileFilterOpen ? 'block' : 'hidden'} glass-card rounded-2xl border border-gold-500/20 p-5 space-y-6 shadow-xl`}>
-          <div className="flex items-center justify-between border-b border-gold-500/15 pb-3">
-            <h3 className="font-cinzel text-xs font-bold uppercase tracking-widest text-gold-300 flex items-center gap-2">
-              <SlidersHorizontal className="w-4 h-4 text-gold-400" />
+        {/* FILTERS SIDEBAR */}
+        <aside className={`md:block ${mobileFilterOpen ? 'block' : 'hidden'} bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 space-y-5 shadow-xs`}>
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h3 className="font-cinzel text-xs font-bold uppercase tracking-widest text-slate-900 flex items-center gap-2">
+              <SlidersHorizontal className="w-4 h-4 text-gold-700" />
               Filter Fleet
             </h3>
             {activeFiltersCount > 0 && (
-              <button onClick={clearFilters} className="text-[11px] text-slate-400 hover:text-gold-400">
+              <button onClick={clearFilters} className="text-[11px] text-slate-500 hover:text-gold-800 font-semibold">
                 Reset
               </button>
             )}
           </div>
 
           {/* Destination */}
-          <div className="space-y-2">
-            <label className="block text-[10px] font-bold uppercase tracking-widest text-gold-400 font-cinzel">
+          <div className="space-y-1.5">
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-700 font-cinzel">
               Destination
             </label>
             <select
               value={selectedDestination}
               onChange={(e) => setSelectedDestination(e.target.value)}
-              className="w-full bg-obsidian-950 border border-gold-500/20 text-slate-200 text-xs rounded-xl p-2.5 focus:ring-1 focus:ring-gold-400 focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-200/90 text-slate-800 text-xs rounded-xl p-2.5 focus:border-gold-500 focus:outline-none"
             >
               <option value="">All Prestigious Valleys</option>
               {destinations.map((d) => (
@@ -260,14 +262,14 @@ function SearchContent() {
           </div>
 
           {/* Category */}
-          <div className="space-y-2">
-            <label className="block text-[10px] font-bold uppercase tracking-widest text-gold-400 font-cinzel">
+          <div className="space-y-1.5">
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-700 font-cinzel">
               Curated Collection
             </label>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full bg-obsidian-950 border border-gold-500/20 text-slate-200 text-xs rounded-xl p-2.5 focus:ring-1 focus:ring-gold-400 focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-200/90 text-slate-800 text-xs rounded-xl p-2.5 focus:border-gold-500 focus:outline-none"
             >
               <option value="">All Collections</option>
               {categories.map((c) => (
@@ -277,8 +279,8 @@ function SearchContent() {
           </div>
 
           {/* Price Range */}
-          <div className="space-y-2">
-            <label className="block text-[10px] font-bold uppercase tracking-widest text-gold-400 font-cinzel">
+          <div className="space-y-1.5">
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-700 font-cinzel">
               Suite Price Range (PKR)
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -287,21 +289,21 @@ function SearchContent() {
                 placeholder="Min PKR"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
-                className="w-full bg-obsidian-950 border border-gold-500/20 text-slate-200 text-xs rounded-xl p-2 focus:ring-1 focus:ring-gold-400 focus:outline-none"
+                className="w-full bg-slate-50 border border-slate-200/90 text-slate-800 text-xs rounded-xl p-2 focus:border-gold-500 focus:outline-none"
               />
               <input
                 type="number"
                 placeholder="Max PKR"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className="w-full bg-obsidian-950 border border-gold-500/20 text-slate-200 text-xs rounded-xl p-2 focus:ring-1 focus:ring-gold-400 focus:outline-none"
+                className="w-full bg-slate-50 border border-slate-200/90 text-slate-800 text-xs rounded-xl p-2 focus:border-gold-500 focus:outline-none"
               />
             </div>
           </div>
 
           {/* Min Rating */}
-          <div className="space-y-2">
-            <label className="block text-[10px] font-bold uppercase tracking-widest text-gold-400 font-cinzel">
+          <div className="space-y-1.5">
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-700 font-cinzel">
               Minimum Rating
             </label>
             <div className="flex items-center gap-1.5">
@@ -311,8 +313,8 @@ function SearchContent() {
                   onClick={() => setMinRating(r)}
                   className={`flex-1 py-1.5 rounded-lg border text-xs font-semibold transition ${
                     minRating === r 
-                      ? 'border-gold-400 bg-gold-500/20 text-gold-300' 
-                      : 'border-white/10 hover:border-gold-500/30 text-slate-400'
+                      ? 'border-gold-500 bg-gold-50 text-gold-900 font-bold' 
+                      : 'border-slate-200 bg-white text-slate-600 hover:border-gold-400'
                   }`}
                 >
                   {r ? `${r}★` : 'Any'}
@@ -322,16 +324,16 @@ function SearchContent() {
           </div>
 
           {/* Toggles */}
-          <div className="space-y-3 pt-3 border-t border-gold-500/15">
+          <div className="space-y-2.5 pt-3 border-t border-slate-100">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
                 checked={verifiedOnly}
                 onChange={(e) => setVerifiedOnly(e.target.checked)}
-                className="w-4 h-4 accent-gold-500 rounded border-gold-500/40 bg-obsidian-950"
+                className="w-4 h-4 accent-gold-600 rounded border-slate-300"
               />
-              <span className="text-xs font-medium text-slate-300 flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-gold-400" />
+              <span className="text-xs font-medium text-slate-700 flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                 Verified Operators Only
               </span>
             </label>
@@ -341,10 +343,10 @@ function SearchContent() {
                 type="checkbox"
                 checked={hasDiscount}
                 onChange={(e) => setHasDiscount(e.target.checked)}
-                className="w-4 h-4 accent-gold-500 rounded border-gold-500/40 bg-obsidian-950"
+                className="w-4 h-4 accent-gold-600 rounded border-slate-300"
               />
-              <span className="text-xs font-medium text-slate-300 flex items-center gap-1">
-                <Tag className="w-3.5 h-3.5 text-gold-400" />
+              <span className="text-xs font-medium text-slate-700 flex items-center gap-1">
+                <Tag className="w-3.5 h-3.5 text-gold-700" />
                 VIP Seasonal Privileges
               </span>
             </label>
@@ -353,35 +355,35 @@ function SearchContent() {
 
         {/* RESULTS COLUMN */}
         <main className="md:col-span-3 space-y-4">
-          <div className="flex items-center justify-between text-xs font-light text-slate-400 px-1">
+          <div className="flex items-center justify-between text-xs font-light text-slate-500 px-1">
             <span>Showing {listings.length} of {totalCount} verified fleet offerings</span>
           </div>
 
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {[1, 2, 3, 4].map((n) => (
-                <div key={n} className="h-80 bg-obsidian-900 animate-pulse rounded-2xl border border-gold-500/15" />
+                <div key={n} className="h-80 bg-slate-100 animate-pulse rounded-2xl border border-slate-200" />
               ))}
             </div>
           ) : listings.length === 0 ? (
-            <div className="glass-card rounded-2xl border border-gold-500/20 p-12 text-center space-y-4 shadow-sm">
-              <div className="w-16 h-16 bg-obsidian-900 border border-gold-500/20 text-gold-400 rounded-full flex items-center justify-center mx-auto">
-                <Search className="w-8 h-8" />
+            <div className="bg-white rounded-2xl border border-slate-200/90 p-8 sm:p-12 text-center space-y-3.5 shadow-xs">
+              <div className="w-14 h-14 bg-slate-100 border border-slate-200 text-slate-400 rounded-full flex items-center justify-center mx-auto">
+                <Search className="w-7 h-7" />
               </div>
-              <h3 className="text-lg font-cinzel font-bold text-white">No offerings matched your criteria</h3>
-              <p className="text-xs text-slate-400 max-w-md mx-auto font-light">
+              <h3 className="text-lg font-cinzel font-bold text-slate-900">No offerings matched your criteria</h3>
+              <p className="text-xs text-slate-500 max-w-md mx-auto font-light">
                 Try widening your price range, choosing another destination, or resetting parameters to review all available suites.
               </p>
               <button
                 onClick={clearFilters}
-                className="px-5 py-2.5 bg-gradient-to-r from-gold-500 to-amber-600 text-obsidian-950 text-xs font-black uppercase tracking-wider rounded-xl transition"
+                className="px-5 py-2.5 bg-gradient-to-r from-gold-500 to-amber-600 hover:brightness-105 text-slate-950 text-xs font-black uppercase tracking-wider rounded-xl transition shadow-xs"
               >
                 Reset All Filters
               </button>
             </div>
           ) : viewMode === 'grid' ? (
             /* GRID VIEW */
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
               {listings.map((listing) => {
                 const coverImage = listing.media?.[0]?.url || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80';
                 const hasDiscount = listing.discounts && listing.discounts.length > 0;
@@ -390,16 +392,16 @@ function SearchContent() {
                 return (
                   <div
                     key={listing.id}
-                    className="group glass-card rounded-2xl border border-white/10 hover:border-gold-500/50 hover:shadow-gold-md transition-all duration-300 overflow-hidden flex flex-col justify-between"
+                    className="group bg-white rounded-2xl border border-slate-200/90 hover:border-gold-400/80 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-xs"
                   >
                     <div>
-                      <div className="relative h-56 overflow-hidden">
+                      <div className="relative h-48 sm:h-52 overflow-hidden">
                         <img
                           src={coverImage}
                           alt={listing.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-90"
+                          className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-transparent to-transparent opacity-80" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-60" />
 
                         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
                           {hasDiscount && (
@@ -408,52 +410,52 @@ function SearchContent() {
                               {discount.percentage ? `${discount.percentage}% PRIVILEGE` : 'EXCLUSIVE'}
                             </span>
                           )}
-                          <span className="bg-obsidian-950/85 backdrop-blur text-gold-300 text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full border border-gold-500/25">
+                          <span className="bg-slate-900/85 backdrop-blur text-gold-300 text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full border border-gold-400/30">
                             {listing.destination?.name}
                           </span>
                         </div>
-                        <div className="absolute bottom-3 right-3 bg-obsidian-950/90 backdrop-blur px-2.5 py-1 rounded-lg text-xs font-bold text-gold-400 flex items-center gap-1 border border-gold-500/20 shadow-sm">
-                          <Star className="w-3.5 h-3.5 fill-gold-400 text-gold-400" />
+                        <div className="absolute bottom-3 right-3 bg-white/95 backdrop-blur px-2.5 py-1 rounded-lg text-xs font-bold text-slate-900 flex items-center gap-1 border border-slate-100 shadow-xs">
+                          <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
                           <span>{listing.rating.toFixed(1)}</span>
                         </div>
                       </div>
 
-                      <div className="p-5 space-y-3">
+                      <div className="p-4 sm:p-5 space-y-2.5">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-xs font-semibold text-slate-300 truncate">{listing.provider?.businessName}</span>
+                          <span className="text-xs font-semibold text-slate-600 truncate">{listing.provider?.businessName}</span>
                           {listing.provider?.verificationStatus === 'APPROVED' && (
-                            <ShieldCheck className="w-3.5 h-3.5 text-gold-400 shrink-0" />
+                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                           )}
                         </div>
 
                         <Link href={`/listing/${listing.slug}`}>
-                          <h4 className="text-base font-cinzel font-bold text-white group-hover:text-gold-300 transition line-clamp-2">
+                          <h4 className="text-base font-cinzel font-bold text-slate-900 group-hover:text-gold-800 transition line-clamp-2">
                             {listing.title}
                           </h4>
                         </Link>
 
-                        <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed font-light">
+                        <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed font-light">
                           {listing.shortDescription}
                         </p>
 
-                        <div className="flex items-center gap-3 text-xs text-slate-400 font-light pt-2 border-t border-white/5">
-                          <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5 text-gold-500/80" /> {listing.durationDays} Days</span>
-                          <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5 text-gold-500/80" /> Up to {listing.maxGuests}</span>
+                        <div className="flex items-center gap-3 text-xs text-slate-500 font-light pt-2 border-t border-slate-100">
+                          <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5 text-gold-700" /> {listing.durationDays} Days</span>
+                          <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5 text-gold-700" /> Up to {listing.maxGuests}</span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="p-5 pt-0 flex items-center justify-between border-t border-gold-500/15 mt-2">
+                    <div className="p-4 sm:p-5 pt-0 flex items-center justify-between border-t border-slate-100 mt-2">
                       <div>
-                        <span className="text-[9px] uppercase tracking-widest font-bold text-gold-400/80 block">From</span>
-                        <span className="text-base font-black text-white">
+                        <span className="text-[9px] uppercase tracking-widest font-bold text-slate-400 block">From</span>
+                        <span className="text-base sm:text-lg font-black text-slate-950 font-cinzel">
                           {listing.currency} {listing.basePrice.toLocaleString()}
                         </span>
                       </div>
 
                       <Link
                         href={`/listing/${listing.slug}`}
-                        className="px-4 py-2 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-obsidian-950 text-xs font-black rounded-xl shadow-gold-sm transition hover:scale-[1.02]"
+                        className="px-3.5 sm:px-4 py-2 bg-gradient-to-r from-gold-500 to-amber-600 hover:brightness-105 text-slate-950 text-xs font-black rounded-xl shadow-xs transition hover:scale-[1.02]"
                       >
                         Details
                       </Link>
@@ -470,29 +472,29 @@ function SearchContent() {
                 return (
                   <div
                     key={listing.id}
-                    className="glass-card rounded-2xl border border-white/10 hover:border-gold-500/50 p-4 flex flex-col sm:flex-row items-center gap-5 transition"
+                    className="bg-white rounded-2xl border border-slate-200/90 hover:border-gold-400/80 p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 transition shadow-xs"
                   >
-                    <img src={coverImage} alt={listing.title} className="w-full sm:w-48 h-36 object-cover rounded-xl shrink-0" />
-                    <div className="flex-1 space-y-2">
+                    <img src={coverImage} alt={listing.title} className="w-full sm:w-48 h-40 sm:h-36 object-cover rounded-xl shrink-0" />
+                    <div className="flex-1 space-y-1.5 w-full">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs text-gold-400 font-semibold">{listing.destination?.name} • {listing.category?.name}</span>
-                        <span className="flex items-center gap-1 text-xs font-bold text-gold-400">
-                          <Star className="w-3.5 h-3.5 fill-gold-400" /> {listing.rating.toFixed(1)}
+                        <span className="text-xs text-gold-800 font-bold">{listing.destination?.name} • {listing.category?.name}</span>
+                        <span className="flex items-center gap-1 text-xs font-bold text-amber-600">
+                          <Star className="w-3.5 h-3.5 fill-amber-500" /> {listing.rating.toFixed(1)}
                         </span>
                       </div>
                       <Link href={`/listing/${listing.slug}`}>
-                        <h4 className="text-base font-cinzel font-bold text-white hover:text-gold-300 transition">{listing.title}</h4>
+                        <h4 className="text-base font-cinzel font-bold text-slate-900 hover:text-gold-800 transition line-clamp-1">{listing.title}</h4>
                       </Link>
-                      <p className="text-xs text-slate-400 line-clamp-2 font-light">{listing.shortDescription}</p>
+                      <p className="text-xs text-slate-500 line-clamp-2 font-light">{listing.shortDescription}</p>
                     </div>
-                    <div className="flex sm:flex-col items-center justify-between gap-3 shrink-0 sm:border-l sm:border-gold-500/20 sm:pl-5 w-full sm:w-auto">
-                      <div className="text-right sm:text-center">
-                        <span className="text-[10px] uppercase text-gold-400 font-bold block">Rate</span>
-                        <span className="text-base font-black text-white">{listing.currency} {listing.basePrice.toLocaleString()}</span>
+                    <div className="flex sm:flex-col items-center justify-between gap-2.5 shrink-0 sm:border-l sm:border-slate-100 sm:pl-4 w-full sm:w-auto">
+                      <div className="text-left sm:text-center">
+                        <span className="text-[10px] uppercase text-slate-400 font-bold block">Rate</span>
+                        <span className="text-base font-black text-slate-950 font-cinzel">{listing.currency} {listing.basePrice.toLocaleString()}</span>
                       </div>
                       <Link
                         href={`/listing/${listing.slug}`}
-                        className="px-4 py-2 bg-gradient-to-r from-gold-500 to-amber-600 text-obsidian-950 font-black text-xs rounded-xl shadow-gold-sm"
+                        className="px-4 py-2 bg-gradient-to-r from-gold-500 to-amber-600 hover:brightness-105 text-slate-950 font-black text-xs rounded-xl shadow-xs"
                       >
                         View Suite
                       </Link>
@@ -512,7 +514,7 @@ export default function SearchPage() {
   return (
     <Suspense fallback={
       <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-        <div className="w-12 h-12 border-4 border-gold-400 border-t-transparent rounded-full animate-spin mx-auto" />
+        <div className="w-10 h-10 border-4 border-gold-500 border-t-transparent rounded-full animate-spin mx-auto" />
       </div>
     }>
       <SearchContent />

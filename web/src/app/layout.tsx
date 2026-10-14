@@ -5,8 +5,8 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
-  title: 'Faraday Expeditions | Multi-Provider Verified Travel Marketplace',
-  description: 'Discover, compare, and book verified service providers for high-altitude trekking, cultural tours, and coastal expeditions.',
+  title: 'Faraday Royal Expeditions | Multi-Provider Verified Luxury Marketplace',
+  description: 'Discover, compare, and reserve verified First-Class expeditions, alpine suites, and private charters.',
 };
 
 export default function RootLayout({
@@ -15,11 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="min-h-screen flex flex-col bg-obsidian-950 text-slate-100 antialiased selection:bg-gold-500 selection:text-obsidian-950">
+    <html lang="en">
+      <body className="min-h-screen flex flex-col bg-[#faf8f5] text-slate-900 antialiased selection:bg-gold-500 selection:text-white">
         <AuthProvider>
           <Navbar />
-          <main className="flex-1">
+          <main className="flex-1 w-full">
             {children}
           </main>
           <Footer />

@@ -62,26 +62,26 @@ export default function ComparePage() {
 
   if (loading) {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-20 text-center space-y-4">
-        <div className="w-10 h-10 border-4 border-gold-400 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-xs uppercase tracking-widest font-cinzel text-gold-400">Loading Fleet Comparison Engine...</p>
+      <div className="max-w-6xl mx-auto px-4 py-20 text-center space-y-3">
+        <div className="w-10 h-10 border-4 border-gold-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-xs uppercase tracking-widest font-cinzel text-slate-600">Loading Fleet Comparison Engine...</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 bg-obsidian-950 text-slate-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8 bg-[#faf8f5] text-slate-900 w-full overflow-hidden">
       
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-gold-500/20 pb-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-200 pb-4 sm:pb-6">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-gold-400 uppercase tracking-widest font-cinzel mb-1">
-            <ArrowLeftRight className="w-3.5 h-3.5" /> Fleet Specification Comparison
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-gold-800 uppercase tracking-widest font-cinzel mb-0.5">
+            <ArrowLeftRight className="w-3.5 h-3.5 text-gold-600" /> Fleet Specification Comparison
           </div>
-          <h1 className="text-2xl sm:text-3xl font-cinzel font-black text-white">
+          <h1 className="text-xl sm:text-3xl font-cinzel font-black text-slate-950">
             Compare First-Class Expeditions
           </h1>
-          <p className="text-xs text-slate-400 mt-1 font-light">
+          <p className="text-xs text-slate-500 mt-1 font-light">
             Evaluate high-altitude itineraries, inclusions, licensed operator credentials, and suite rates side-by-side.
           </p>
         </div>
@@ -96,8 +96,8 @@ export default function ComparePage() {
                 onClick={() => toggleSelect(l.id)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                   isSelected
-                    ? 'bg-gradient-to-r from-gold-500 to-amber-600 text-obsidian-950 shadow-gold-sm'
-                    : 'bg-obsidian-900 border border-gold-500/20 text-slate-300 hover:border-gold-400'
+                    ? 'bg-gradient-to-r from-gold-500 to-amber-600 text-slate-950 shadow-xs'
+                    : 'bg-white border border-slate-200 text-slate-700 hover:border-gold-400'
                 }`}
               >
                 <span>{l.destination?.name} ({l.durationDays}d)</span>
@@ -108,29 +108,29 @@ export default function ComparePage() {
         </div>
       </div>
 
-      {/* COMPARISON TABLE */}
-      <div className="glass-obsidian rounded-3xl border border-gold-500/30 shadow-2xl overflow-hidden overflow-x-auto">
+      {/* COMPARISON TABLE - RESPONSIVE WRAPPER */}
+      <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden overflow-x-auto w-full">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-gold-500/20 bg-obsidian-900/90">
-              <th className="p-4 w-48 text-[10px] font-cinzel font-bold text-gold-400 uppercase tracking-widest">
+            <tr className="border-b border-slate-200 bg-slate-50/80">
+              <th className="p-4 w-44 sm:w-48 text-[10px] font-cinzel font-bold text-slate-500 uppercase tracking-widest shrink-0">
                 Specifications
               </th>
               {selectedListings.map(l => (
-                <th key={l.id} className="p-4 min-w-[280px] max-w-[320px] align-top">
-                  <div className="space-y-3">
+                <th key={l.id} className="p-4 min-w-[260px] sm:min-w-[280px] max-w-[320px] align-top">
+                  <div className="space-y-2.5">
                     <img
                       src={l.media?.[0]?.url || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80'}
                       alt={l.title}
-                      className="w-full h-36 object-cover rounded-xl border border-gold-500/20"
+                      className="w-full h-36 object-cover rounded-xl border border-slate-200"
                     />
-                    <h3 className="text-sm font-cinzel font-bold text-white line-clamp-2">{l.title}</h3>
-                    <div className="text-base font-black text-gold-300 font-cinzel">
+                    <h3 className="text-sm font-cinzel font-bold text-slate-900 line-clamp-2">{l.title}</h3>
+                    <div className="text-base font-black text-slate-950 font-cinzel">
                       PKR {l.basePrice.toLocaleString()}
                     </div>
                     <Link
                       href={`/listing/${l.slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-gold-400 hover:text-gold-300 transition"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-gold-800 hover:text-gold-900 transition"
                     >
                       Reserve Suite <ArrowRight className="w-3 h-3" />
                     </Link>
@@ -139,30 +139,30 @@ export default function ComparePage() {
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gold-500/15 text-xs font-light text-slate-300">
+          <tbody className="divide-y divide-slate-100 text-xs font-light text-slate-700">
             {/* Operator & Verification */}
             <tr>
-              <td className="p-4 font-cinzel font-bold text-gold-400 bg-obsidian-900/40">Accredited Operator</td>
+              <td className="p-4 font-cinzel font-bold text-slate-900 bg-slate-50/50">Accredited Operator</td>
               {selectedListings.map(l => (
                 <td key={l.id} className="p-4">
-                  <div className="flex items-center gap-1.5 font-bold text-white">
+                  <div className="flex items-center gap-1.5 font-bold text-slate-900">
                     <span>{l.provider?.businessName}</span>
                     {l.provider?.verificationStatus === 'APPROVED' && (
-                      <ShieldCheck className="w-4 h-4 text-gold-400" />
+                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
                     )}
                   </div>
-                  <span className="text-[11px] text-slate-400">Rating: ★ {l.rating.toFixed(1)} ({l.reviewCount} VIP reviews)</span>
+                  <span className="text-[11px] text-slate-500">Rating: ★ {l.rating.toFixed(1)} ({l.reviewCount} VIP reviews)</span>
                 </td>
               ))}
             </tr>
 
             {/* Destination & Region */}
             <tr>
-              <td className="p-4 font-cinzel font-bold text-gold-400 bg-obsidian-900/40">Destination</td>
+              <td className="p-4 font-cinzel font-bold text-slate-900 bg-slate-50/50">Destination</td>
               {selectedListings.map(l => (
-                <td key={l.id} className="p-4 font-semibold text-slate-200">
+                <td key={l.id} className="p-4 font-semibold text-slate-800">
                   <div className="flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-gold-400" />
+                    <MapPin className="w-3.5 h-3.5 text-gold-600" />
                     <span>{l.destination?.name} ({l.destination?.country})</span>
                   </div>
                 </td>
@@ -171,9 +171,9 @@ export default function ComparePage() {
 
             {/* Category */}
             <tr>
-              <td className="p-4 font-cinzel font-bold text-gold-400 bg-obsidian-900/40">Collection</td>
+              <td className="p-4 font-cinzel font-bold text-slate-900 bg-slate-50/50">Collection</td>
               {selectedListings.map(l => (
-                <td key={l.id} className="p-4 font-semibold text-slate-200">
+                <td key={l.id} className="p-4 font-semibold text-slate-800">
                   {l.category?.name}
                 </td>
               ))}
@@ -181,11 +181,11 @@ export default function ComparePage() {
 
             {/* Duration */}
             <tr>
-              <td className="p-4 font-cinzel font-bold text-gold-400 bg-obsidian-900/40">Expedition Duration</td>
+              <td className="p-4 font-cinzel font-bold text-slate-900 bg-slate-50/50">Expedition Duration</td>
               {selectedListings.map(l => (
-                <td key={l.id} className="p-4 font-semibold text-slate-200">
+                <td key={l.id} className="p-4 font-semibold text-slate-800">
                   <div className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5 text-gold-400" />
+                    <Clock className="w-3.5 h-3.5 text-gold-600" />
                     <span>{l.durationDays} Days / {l.durationDays - 1} Nights</span>
                   </div>
                 </td>
@@ -194,11 +194,11 @@ export default function ComparePage() {
 
             {/* Max Capacity */}
             <tr>
-              <td className="p-4 font-cinzel font-bold text-gold-400 bg-obsidian-900/40">Suite Capacity</td>
+              <td className="p-4 font-cinzel font-bold text-slate-900 bg-slate-50/50">Suite Capacity</td>
               {selectedListings.map(l => (
-                <td key={l.id} className="p-4">
+                <td key={l.id} className="p-4 text-slate-800">
                   <div className="flex items-center gap-1">
-                    <Users className="w-3.5 h-3.5 text-gold-400" />
+                    <Users className="w-3.5 h-3.5 text-gold-600" />
                     <span>Up to {l.maxGuests} Travelers</span>
                   </div>
                 </td>
@@ -207,20 +207,20 @@ export default function ComparePage() {
 
             {/* Inclusions Preview */}
             <tr>
-              <td className="p-4 font-cinzel font-bold text-gold-400 bg-obsidian-900/40">Royal Inclusions</td>
+              <td className="p-4 font-cinzel font-bold text-slate-900 bg-slate-50/50">Royal Inclusions</td>
               {selectedListings.map(l => {
                 const incs: string[] = l.inclusions ? JSON.parse(l.inclusions) : [];
                 return (
                   <td key={l.id} className="p-4">
                     <ul className="space-y-1 text-[11px]">
                       {incs.slice(0, 4).map((item, idx) => (
-                        <li key={idx} className="flex items-center gap-1.5 text-slate-300">
-                          <Check className="w-3.5 h-3.5 text-gold-400 shrink-0" />
+                        <li key={idx} className="flex items-center gap-1.5 text-slate-700">
+                          <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                           <span>{item}</span>
                         </li>
                       ))}
                       {incs.length > 4 && (
-                        <li className="text-[10px] text-gold-400 font-semibold italic">
+                        <li className="text-[10px] text-gold-800 font-bold italic">
                           +{incs.length - 4} more royal amenities included
                         </li>
                       )}
@@ -232,9 +232,9 @@ export default function ComparePage() {
 
             {/* Cancellation Policy */}
             <tr>
-              <td className="p-4 font-cinzel font-bold text-gold-400 bg-obsidian-900/40">Discretion & Policy</td>
+              <td className="p-4 font-cinzel font-bold text-slate-900 bg-slate-50/50">Discretion & Policy</td>
               {selectedListings.map(l => (
-                <td key={l.id} className="p-4 text-xs text-slate-400">
+                <td key={l.id} className="p-4 text-xs text-slate-500">
                   {l.cancellationPolicy || 'Flexible 7-day cancellation before departure.'}
                 </td>
               ))}
@@ -242,12 +242,12 @@ export default function ComparePage() {
 
             {/* Action Row */}
             <tr>
-              <td className="p-4 bg-obsidian-900/40"></td>
+              <td className="p-4 bg-slate-50/50"></td>
               {selectedListings.map(l => (
                 <td key={l.id} className="p-4">
                   <Link
                     href={`/listing/${l.slug}`}
-                    className="w-full py-2.5 px-4 bg-gradient-to-r from-gold-500 to-amber-600 text-obsidian-950 text-xs font-black uppercase tracking-wider rounded-xl shadow-gold-sm transition hover:scale-[1.02] flex items-center justify-center gap-1.5"
+                    className="w-full py-2.5 px-4 bg-gradient-to-r from-gold-500 to-amber-600 hover:brightness-105 text-slate-950 text-xs font-black uppercase tracking-wider rounded-xl shadow-xs transition hover:scale-[1.02] flex items-center justify-center gap-1.5"
                   >
                     View Details
                   </Link>
